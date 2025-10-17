@@ -1,6 +1,6 @@
 {
   "name": "portfolio",
-  "homepage": "https://ykhier.github.io/prtfolio/",
+  "homepage": "https://ykhier.github.io/portfolio/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,7 +15,6 @@
   "dependencies": {
     "@iconify/react": "^6.0.2",
     "@tailwindcss/vite": "^4.1.14",
-    "gh-pages": "^6.3.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
