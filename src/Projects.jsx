@@ -4,9 +4,9 @@ import yosefToolsPicture from "./assets/yosef_tools_website_picture.png";
 import toDoListPicture from "./assets/To_Do_List_picture.png";
 import maxVsBonesPicture from "./assets/max_vs_bones_picture.png";
 import ardiunoCalculatorPicture from "./assets/arduino_calculator_picture.png";
+import { MotionDiv, fadeUp, staggerContainer, staggerCard } from "./animations";
 
 function Projects() {
-
     const projects = [
         {
             id: 1,
@@ -44,24 +44,42 @@ function Projects() {
             githubUrl: "https://github.com/ykhier/Arduino_calculator_project",
         },
     ];
+
     return (
-        <section className="px-4 py-12 scroll-mt-45 md:scroll-mt-28" id="projects" >
-            <div className="mx-auto max-w-5xl rounded-2xl border border-gray-200 bg-white shadow-md p-8">
+        <section className="px-4 py-12 scroll-mt-45 md:scroll-mt-28" id="projects">
+            <MotionDiv
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.06 }}
+                className="mx-auto max-w-5xl rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md p-8"
+            >
                 <Title title="Projects" />
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <MotionDiv
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.05 }}
+                    className="grid grid-cols-1 gap-5 md:grid-cols-2"
+                >
                     {projects.map((project) => (
-                        <div key={project.id} className="flex flex-col border border-gray-200 rounded-lg shadow-lg">
+                        <MotionDiv
+                            key={project.id}
+                            variants={staggerCard}
+                            className="flex flex-col border border-gray-200 dark:border-gray-700 dark:bg-gray-900 rounded-lg shadow-lg"
+                        >
                             <img src={project.imageName} alt={project.title} className="w-full h-60 rounded-t-lg" />
                             <div className="p-4">
-                                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                                <p className="text-gray-600 mb-4">{project.description}</p>
+                                <h3 className="text-xl font-semibold mb-2 dark:text-gray-100">{project.title}</h3>
+                                <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
                             </div>
                             <a href={project.githubUrl} className="text-blue-500 pb-4 pl-4 hover:underline" target="_blank">View on GitHub</a>
-                        </div>
+                        </MotionDiv>
                     ))}
-                </div>
-            </div>
-        </ section >
+                </MotionDiv>
+            </MotionDiv>
+        </section>
     );
 }
+
 export default Projects;
