@@ -4,7 +4,7 @@ import Line from "./Line.jsx";
 import { MotionDiv, fadeUp } from "./animations";
 
 import {
-    SiC, SiGithub, SiJavascript, SiReact, SiTailwindcss, SiPython, SiMysql, SiCss3, SiHtml5, SiNextdotjs
+    SiC, SiGithub, SiJavascript, SiReact, SiTailwindcss, SiPython, SiMysql, SiCss3, SiHtml5, SiNextdotjs, SiPostgresql
 } from "react-icons/si";
 import { FaJava, FaGitAlt, FaGithub, FaMicrosoft, FaProjectDiagram } from "react-icons/fa";
 import { Icon } from "@iconify/react";
@@ -28,6 +28,7 @@ function Skills() {
         { name: "MySQL",      icon: SiMysql,       color: "text-blue-600" },
         { name: "Next.js",    icon: SiNextdotjs,   color: "text-neutral-900 dark:text-gray-100" },
         { name: "shadcn/ui",  icon: ShadcnIcon,    color: "text-neutral-800 dark:text-gray-100" },
+        { name: "PostgreSQL", icon: SiPostgresql,  color: "text-blue-700" },
     ];
 
     const tools = [
