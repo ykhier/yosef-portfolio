@@ -1,7 +1,7 @@
 import myPic from "./assets/my-pic.png";
 import Title from "./Title";
 import { MotionDiv, fadeUp } from "./animations";
-
+//About us
 function AboutUs() {
     const name = "Yosef Khier";
     return (
