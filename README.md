@@ -34,3 +34,9 @@ npm install
 
 # Run the development server
 npm run dev
+
+## 👨‍💻 Developer
+
+Developed by **Yosef Khier**
+
+AI-focused full-stack developer building production-grade intelligent systems.
