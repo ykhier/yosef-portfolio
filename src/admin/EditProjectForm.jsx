@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { API, authHeaders, inputCls } from "./adminUtils";
 
@@ -8,26 +8,18 @@ export default function EditProjectForm({ project, onSave, onCancel, onAuthError
     description: project.description,
     github_url: project.github_url,
     category: project.category,
+    image_url: project.image_url,
   });
-  const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(project.image_url);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const fileRef = useRef();
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-      const fd = new FormData();
-      fd.append("title", form.title);
-      fd.append("description", form.description);
-      fd.append("github_url", form.github_url);
-      fd.append("category", form.category);
-      if (image) fd.append("image", image);
-      const { data } = await axios.put(`${API}/api/projects/${project.id}`, fd, {
-        headers: { ...authHeaders(), "Content-Type": "multipart/form-data" },
+      const { data } = await axios.put(`${API}/api/projects/${project.id}`, form, {
+        headers: authHeaders(),
       });
       onSave(data);
     } catch (err) {
@@ -48,6 +40,12 @@ export default function EditProjectForm({ project, onSave, onCancel, onAuthError
       <input type="url" value={form.github_url}
         onChange={(e) => setForm((f) => ({ ...f, github_url: e.target.value }))}
         required className={inputCls} placeholder="GitHub URL" />
+      <input type="url" value={form.image_url}
+        onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
+        className={inputCls} placeholder="Image URL (leave unchanged to keep current)" />
+      {form.image_url && (
+        <img src={form.image_url} alt="preview" className="w-full h-36 object-cover rounded-lg" />
+      )}
       <div className="flex gap-4">
         {["personal", "academic"].map((cat) => (
           <label key={cat} className="flex items-center gap-2 cursor-pointer">
@@ -58,22 +56,6 @@ export default function EditProjectForm({ project, onSave, onCancel, onAuthError
             <span className="capitalize dark:text-gray-200 text-sm">{cat}</span>
           </label>
         ))}
-      </div>
-      <div>
-        <input ref={fileRef} type="file" accept="image/*" className="hidden" id="edit-image-upload"
-          onChange={(e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            setImage(file);
-            setPreview(URL.createObjectURL(file));
-          }} />
-        <label htmlFor="edit-image-upload"
-          className="flex items-center justify-center gap-2 w-full border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl py-4 cursor-pointer hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-          <span className="text-sm text-gray-500 dark:text-gray-400">
-            {image ? image.name : "Click to replace image (optional)"}
-          </span>
-        </label>
-        {preview && <img src={preview} alt="preview" className="mt-2 w-full h-36 object-cover rounded-lg" />}
       </div>
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <div className="flex gap-2">

@@ -3,7 +3,7 @@ import axios from "axios";
 import Title from "./Title.jsx";
 import { MotionDiv, fadeUp, staggerContainer, staggerCard } from "./animations";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API = import.meta.env.VITE_API_URL || "";
 
 const CATEGORIES = [
   { key: "all", label: "All" },
