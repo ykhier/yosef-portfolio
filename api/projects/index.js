@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import pool from "./_db.js";
+import pool from "../_db.js";
 
 function verifyAuth(req) {
   const auth = req.headers.authorization;
