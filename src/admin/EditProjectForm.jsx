@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { API, authHeaders, inputCls } from "./adminUtils";
 
@@ -12,6 +12,15 @@ export default function EditProjectForm({ project, onSave, onCancel, onAuthError
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const fileRef = useRef();
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setForm((f) => ({ ...f, image_url: reader.result }));
+    reader.readAsDataURL(file);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -40,12 +49,19 @@ export default function EditProjectForm({ project, onSave, onCancel, onAuthError
       <input type="url" value={form.github_url}
         onChange={(e) => setForm((f) => ({ ...f, github_url: e.target.value }))}
         required className={inputCls} placeholder="GitHub URL" />
-      <input type="url" value={form.image_url}
-        onChange={(e) => setForm((f) => ({ ...f, image_url: e.target.value }))}
-        className={inputCls} placeholder="Image URL (leave unchanged to keep current)" />
-      {form.image_url && (
-        <img src={form.image_url} alt="preview" className="w-full h-36 object-cover rounded-lg" />
-      )}
+      <div>
+        <input ref={fileRef} type="file" accept="image/*" className="hidden" id="edit-image-upload"
+          onChange={handleImageChange} />
+        <label htmlFor="edit-image-upload"
+          className="flex items-center justify-center gap-2 w-full border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl py-4 cursor-pointer hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
+            Click to replace image (optional)
+          </span>
+        </label>
+        {form.image_url && (
+          <img src={form.image_url} alt="preview" className="mt-2 w-full h-36 object-cover rounded-lg" />
+        )}
+      </div>
       <div className="flex gap-4">
         {["personal", "academic"].map((cat) => (
           <label key={cat} className="flex items-center gap-2 cursor-pointer">
