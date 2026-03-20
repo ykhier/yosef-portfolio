@@ -1,49 +1,7 @@
-<<<<<<< HEAD
-
 # Yosef Khier Portfolio
 
-🌐 **Live Website**  
+🌐 **Live Website**
 https://yosef-khier-portfolio.vercel.app/
-
-## About
-This is my personal portfolio website where I showcase my projects, technical skills, and experience as a Software Engineering student. The goal of this website is to present the software projects I have built and provide an easy way for recruiters or collaborators to contact me.
-
-## Technologies
-- React
-- Next.js
-- TypeScript
-- Tailwind CSS
-- EmailJS
-
-## Features
-- Responsive portfolio website
-- Project showcase section
-- Skills and technologies overview
-- Contact form that sends emails directly using **EmailJS**
-- Clean and modern user interface
-
-## Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/ykhier/yosef-portfolio.git
-
-# Navigate to the project folder
-cd yosef-portfolio
-
-# Install dependencies
-npm install
-
-# Run the development server
-npm run dev
-
-## 👨‍💻 Developer
-
-Developed by **Yosef Khier**
-
-AI-focused full-stack developer building production-grade intelligent systems.
-=======
-# Portfolio
 
 A full-stack personal portfolio website with a live projects section backed by a database and a password-protected admin panel. Built with React + Vite on the frontend and Node.js + Express + PostgreSQL on the backend.
 
@@ -106,7 +64,13 @@ portfolio/
 
 ## Getting Started
 
-### 1. Environment variables
+```bash
+# Clone the repository
+git clone https://github.com/ykhier/yosef-portfolio.git
+cd yosef-portfolio
+```
+
+### Environment variables
 
 Create a `.env` file in the project root:
 
@@ -131,7 +95,7 @@ FRONTEND_URL=http://localhost:5173
 SERVER_URL=https://your-backend.onrender.com
 ```
 
-### 2. Database setup
+### Database setup
 
 Run `server/init.sql` against your database once:
 
@@ -145,7 +109,7 @@ pool.query(fs.readFileSync('./server/init.sql', 'utf8')).then(() => { console.lo
 "
 ```
 
-### 3. Install & run
+### Install & run
 
 ```bash
 # Frontend — localhost:5173
@@ -155,7 +119,7 @@ npm run dev
 # Backend — localhost:3001 (open a second terminal)
 cd server
 npm install
-npm run dev      # uses nodemon for auto-reload
+npm run dev
 ```
 
 ## API Reference
@@ -188,11 +152,13 @@ The JWT is stored in `localStorage`. Expired or invalid tokens auto-redirect to 
 npm run deploy
 ```
 
-This runs `vite build` then pushes `dist/` to the `gh-pages` branch.
-
 ### Backend → Render / Railway
 
 1. Deploy the `server/` folder as a Node.js service
 2. Set all `.env` variables as environment variables on the platform
 3. Set `SERVER_URL` to the public URL of the deployed backend so image URLs are correct
->>>>>>> d956f28 (add admin side that can to add a new project in admin dashboard)
+
+## Developer
+
+Developed by **Yosef Khier**
+AI-focused full-stack developer building production-grade intelligent systems.
