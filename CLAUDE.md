@@ -5,11 +5,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
+# Frontend
 npm install        # Install dependencies (required before first run)
 npm run dev        # Start dev server (uses rolldown-vite on localhost:5173)
 npm run build      # Production build → dist/
 npm run preview    # Preview the production build locally
 npm run deploy     # Build + deploy to GitHub Pages (gh-pages -d dist)
+
+# Backend (server/)
+cd server && npm install   # Install server dependencies
+cd server && npm run dev   # Start API server on localhost:3001 (requires nodemon)
+cd server && npm start     # Start API server in production
 ```
 
 No test suite is configured.
@@ -36,9 +42,19 @@ Each section is a standalone `<section>` tag with `id` matching the nav links in
 
 **Contact form** — `ContactMe.jsx` uses EmailJS (`@emailjs/browser`) with credentials hard-coded in the file (service ID, template ID, public key). Sends on form submit via `emailjs.sendForm`.
 
+**Dark mode** — `useDarkMode.js` exports a `useDarkMode()` hook that persists preference to `localStorage` and toggles the `dark` class on `<html>`. Called in `Header.jsx`; all dark-mode variants use Tailwind's `dark:` prefix.
+
+**Animations** — `animations.js` exports shared Framer Motion variants (`fadeUp`, `staggerContainer`, `staggerCard`) and pre-wrapped motion components (`MotionDiv`, `MotionUl`, `MotionLi`). Import from this file rather than creating one-off variants.
+
 **Styling** — Tailwind v4 via the `@tailwindcss/vite` plugin; no `tailwind.config.js` needed. Only `@import "tailwindcss"` in `index.css`. All styling is done with utility classes inline in JSX.
 
-**Deployment** — Vite base path is `/portfolio/` (matches the GitHub Pages repo path `ykhier.github.io/portfolio`). Deployed via `gh-pages` to the `gh-pages` branch.
+**Admin panel** — Lives at `/#/admin` (hash routing, works on static GitHub Pages). Protected by JWT stored in `localStorage`. Routes: `/#/admin/login` → `AdminLogin.jsx`, `/#/admin` → `AdminPanel.jsx` (behind `ProtectedRoute.jsx`). Credentials come from `ADMIN_EMAIL` / `ADMIN_PASSWORD` env vars on the server — never hashed, compared directly.
+
+**Backend** — Separate Express server in `server/`. Reads `.env` from the repo root via `dotenv`. Key routes: `POST /api/auth/login`, `GET /api/projects`, `POST /api/projects` (multipart, admin-only), `DELETE /api/projects/:id` (admin-only). Image uploads go to Cloudinary via `multer-storage-cloudinary`; the returned `req.file.path` is the Cloudinary URL stored in the DB. Run DB setup with `server/init.sql` before first use. Copy `.env.example` → `.env` and fill in values.
+
+**Projects data flow** — `Projects.jsx` fetches from `VITE_API_URL/api/projects` on mount (no fake data). Displays category filter tabs (All / Personal / Academic). Each card shows a `category` badge (`personal` = blue, `academic` = purple).
+
+**Deployment** — Vite base path is `/` (GitHub Pages repo path handled by HashRouter). Deployed via `gh-pages` to the `gh-pages` branch. The backend must be deployed separately (e.g., Render, Railway) and `VITE_API_URL` set to its public URL before running `npm run build`.
 
 ## Key conventions
 
