@@ -3,7 +3,7 @@ import axios from "axios";
 import EditProjectForm from "./EditProjectForm";
 import { API, authHeaders } from "./adminUtils";
 
-export default function ProjectsList({ projects, onProjectsChange, onAuthError }) {
+export default function ProjectsList({ projects, loading, onProjectsChange, onAuthError }) {
   const [editingId, setEditingId] = useState(null);
 
   async function handleDelete(id) {
@@ -35,7 +35,15 @@ export default function ProjectsList({ projects, onProjectsChange, onAuthError }
         </h2>
       </div>
 
-      {projects.length === 0 ? (
+      {loading ? (
+        <div className="flex items-center justify-center py-10 gap-2 text-slate-400 dark:text-slate-500">
+          <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+          </svg>
+          <span className="text-sm">Loading projects...</span>
+        </div>
+      ) : projects.length === 0 ? (
         <div className="text-center py-10">
           <svg className="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-3" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />

@@ -18,7 +18,23 @@ export default function EditProjectForm({ project, onSave, onCancel, onAuthError
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => setForm((f) => ({ ...f, image_url: reader.result }));
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX = 800;
+        let { width, height } = img;
+        if (width > MAX || height > MAX) {
+          if (width > height) { height = Math.round(height * MAX / width); width = MAX; }
+          else { width = Math.round(width * MAX / height); height = MAX; }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+        setForm((f) => ({ ...f, image_url: canvas.toDataURL("image/jpeg", 0.8) }));
+      };
+      img.src = ev.target.result;
+    };
     reader.readAsDataURL(file);
   }
 

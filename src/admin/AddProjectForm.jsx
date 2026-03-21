@@ -21,7 +21,24 @@ export default function AddProjectForm({ onAdded, onAuthError }) {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => setForm((f) => ({ ...f, image_url: reader.result }));
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX = 800;
+        let { width, height } = img;
+        if (width > MAX || height > MAX) {
+          if (width > height) { height = Math.round(height * MAX / width); width = MAX; }
+          else { width = Math.round(width * MAX / height); height = MAX; }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+        const compressed = canvas.toDataURL("image/jpeg", 0.8);
+        setForm((f) => ({ ...f, image_url: compressed }));
+      };
+      img.src = ev.target.result;
+    };
     reader.readAsDataURL(file);
   }
 
@@ -31,11 +48,11 @@ export default function AddProjectForm({ onAdded, onAuthError }) {
     if (!form.image_url) { setError("Please select an image"); return; }
     setLoading(true);
     try {
-      await axios.post(`${API}/api/projects`, form, { headers: authHeaders() });
+      const { data } = await axios.post(`${API}/api/projects`, form, { headers: authHeaders() });
       setSuccess("Project added successfully!");
       setForm(emptyForm);
       if (fileRef.current) fileRef.current.value = "";
-      onAdded();
+      onAdded(data);
     } catch (err) {
       if (!onAuthError(err)) setError(err.response?.data?.error || "Failed to add project");
     } finally {
