@@ -1,8 +1,8 @@
-
-
 function Line() {
     return (
-        <hr className="mt-4 border-t-2 border-gray-300 dark:border-gray-600 rounded-2xl" />
+        <div className="my-6 flex items-center gap-3">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent opacity-70" />
+        </div>
     );
 }
 export default Line;

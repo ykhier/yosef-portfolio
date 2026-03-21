@@ -32,8 +32,13 @@ export default function AdminPanel() {
   useEffect(() => { fetchProjects(); }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 px-3 md:px-4 py-6 md:py-8">
-      <div className="mx-auto max-w-3xl">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070d1a] px-3 md:px-4 py-6 md:py-8 transition-colors duration-300">
+      {/* Background glow */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/5 dark:bg-cyan-500/8 rounded-full blur-3xl" />
+      </div>
+      <div className="relative mx-auto max-w-3xl">
         <AdminHeader />
         <AddProjectForm onAdded={fetchProjects} onAuthError={handleAuthError} />
         <ProjectsList projects={projects} onProjectsChange={setProjects} onAuthError={handleAuthError} />

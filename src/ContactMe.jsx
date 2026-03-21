@@ -33,6 +33,8 @@ function ContactMe() {
         }
     };
 
+    const inputCls = "w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/60 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400 dark:focus:border-blue-500 transition-all duration-200 text-sm";
+
     return (
         <section className="px-4 py-12 scroll-mt-24 md:scroll-mt-28" id="contact">
             <MotionDiv
@@ -40,58 +42,63 @@ function ContactMe() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.1 }}
-                className="mx-auto max-w-5xl rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md p-4 md:p-8"
+                className="mx-auto max-w-5xl rounded-2xl border border-slate-200/80 dark:border-slate-700/40 bg-white/80 dark:bg-slate-900/70 shadow-xl shadow-slate-200/40 dark:shadow-black/40 backdrop-blur-sm p-4 md:p-8"
             >
                 <Title title="Contact Me" />
-                <form ref={formRef} className="space-y-6" onSubmit={sendEmail}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                                className="mt-1 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-gray-800"
-                            />
+
+                <div className="max-w-xl mx-auto">
+                    <p className="text-center text-sm text-slate-500 dark:text-slate-400 mb-8">
+                        Have a question or want to work together? Feel free to reach out.
+                    </p>
+
+                    <form ref={formRef} className="space-y-4" onSubmit={sendEmail}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                    placeholder="Your name"
+                                    className={inputCls}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">Email</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    placeholder="your@email.com"
+                                    className={inputCls}
+                                />
+                            </div>
                         </div>
                         <div>
-                            <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                className="mt-1 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-gray-800"
-                            />
-                        </div>
-                        <div className="md:col-span-2">
-                            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                            <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">Message</label>
                             <textarea
-                                id="message"
                                 name="message"
                                 rows="4"
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                                 required
-                                className="mt-1 w-full px-3 py-2 border resize-none border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 dark:focus:ring-offset-gray-800"
+                                placeholder="Write your message..."
+                                className={`${inputCls} resize-none`}
                             />
                         </div>
-                    </div>
-                    <div>
                         <button
                             type="submit"
                             disabled={sending}
-                            className="w-full justify-center py-2 px-4 border border-sky-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 text-white bg-gradient-to-r from-blue-700 via-sky-500 to-cyan-300 hover:from-blue-800 hover:via-sky-600 hover:to-cyan-400 font-semibold disabled:opacity-60"
+                            className="w-full py-3 px-6 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             {sending ? "Sending..." : "Send Message"}
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </MotionDiv>
         </section>
     );

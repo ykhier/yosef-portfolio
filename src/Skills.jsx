@@ -48,7 +48,7 @@ function Skills() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.08 }}
-                className="mx-auto max-w-5xl rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md p-4 md:p-8"
+                className="mx-auto max-w-5xl rounded-2xl border border-slate-200/80 dark:border-slate-700/40 bg-white/80 dark:bg-slate-900/70 shadow-xl shadow-slate-200/40 dark:shadow-black/40 backdrop-blur-sm p-4 md:p-8"
             >
                 <Title title="Skills" />
                 <Technology skills={skills} title="Programming & Web Technologies" />

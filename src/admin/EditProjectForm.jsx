@@ -39,7 +39,7 @@ export default function EditProjectForm({ project, onSave, onCancel, onAuthError
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-3 bg-slate-50/80 dark:bg-slate-800/30">
       <input type="text" value={form.title}
         onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
         required className={inputCls} placeholder="Title" />
@@ -53,34 +53,36 @@ export default function EditProjectForm({ project, onSave, onCancel, onAuthError
         <input ref={fileRef} type="file" accept="image/*" className="hidden" id="edit-image-upload"
           onChange={handleImageChange} />
         <label htmlFor="edit-image-upload"
-          className="flex items-center justify-center gap-2 w-full border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl py-4 cursor-pointer hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-          <span className="text-sm text-gray-500 dark:text-gray-400">
-            Click to replace image (optional)
-          </span>
+          className="flex items-center justify-center gap-2 w-full border-2 border-dashed border-slate-300 dark:border-slate-600/60 rounded-xl py-3 cursor-pointer hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-all duration-200">
+          <span className="text-sm text-slate-500 dark:text-slate-400">Click to replace image (optional)</span>
         </label>
         {form.image_url && (
-          <img src={form.image_url} alt="preview" className="mt-2 w-full h-36 object-cover rounded-lg" />
+          <img src={form.image_url} alt="preview" className="mt-2 w-full h-36 object-cover rounded-xl border border-slate-200 dark:border-slate-700/50" />
         )}
       </div>
       <div className="flex gap-4">
         {["personal", "academic"].map((cat) => (
-          <label key={cat} className="flex items-center gap-2 cursor-pointer">
+          <label key={cat} className="flex items-center gap-2 cursor-pointer group">
+            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${form.category === cat ? "border-blue-500 bg-blue-500" : "border-slate-300 dark:border-slate-600 group-hover:border-blue-400"}`}
+              onClick={() => setForm((f) => ({ ...f, category: cat }))}>
+              {form.category === cat && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+            </div>
             <input type="radio" name="edit-category" value={cat}
               checked={form.category === cat}
               onChange={() => setForm((f) => ({ ...f, category: cat }))}
-              className="accent-blue-600" />
-            <span className="capitalize dark:text-gray-200 text-sm">{cat}</span>
+              className="sr-only" />
+            <span className="text-sm capitalize text-slate-600 dark:text-slate-300">{cat}</span>
           </label>
         ))}
       </div>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-sm text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 rounded-xl px-3 py-2">{error}</p>}
       <div className="flex gap-2">
         <button type="submit" disabled={loading}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-2 rounded-lg transition-colors text-sm">
+          className="flex-1 py-2 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 shadow-md shadow-blue-500/20 transition-all duration-200 disabled:opacity-60">
           {loading ? "Saving..." : "Save Changes"}
         </button>
         <button type="button" onClick={onCancel}
-          className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 font-semibold py-2 rounded-lg transition-colors text-sm">
+          className="flex-1 border border-slate-200 dark:border-slate-700/60 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60 font-semibold py-2 rounded-xl transition-all duration-200 text-sm">
           Cancel
         </button>
       </div>

@@ -44,48 +44,72 @@ export default function AddProjectForm({ onAdded, onAuthError }) {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-4 md:p-6 mb-8">
-      <h2 className="text-lg font-semibold mb-4 dark:text-white">Add New Project</h2>
+    <div className="rounded-2xl border border-slate-200/80 dark:border-slate-700/40 bg-white/80 dark:bg-slate-900/70 shadow-xl shadow-slate-200/30 dark:shadow-black/30 backdrop-blur-sm p-4 md:p-6 mb-6">
+      <div className="flex items-center gap-2 mb-5">
+        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shrink-0">
+          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </div>
+        <h2 className="font-display text-base font-semibold text-slate-800 dark:text-slate-100">Add New Project</h2>
+      </div>
+
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input type="text" placeholder="Project title" value={form.title}
           onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
           required className={inputCls} />
+
         <textarea placeholder="Description" value={form.description}
           onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
           required rows={4} className={`${inputCls} resize-none`} />
+
         <input type="url" placeholder="GitHub URL" value={form.github_url}
           onChange={(e) => setForm((f) => ({ ...f, github_url: e.target.value }))}
           required className={inputCls} />
+
+        {/* Image upload */}
         <div>
           <input ref={fileRef} type="file" accept="image/*" onChange={handleImageChange} className="hidden" id="image-upload" />
           <label htmlFor="image-upload"
-            className="flex items-center justify-center gap-2 w-full border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl py-6 cursor-pointer hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            className="flex flex-col items-center justify-center gap-2 w-full border-2 border-dashed border-slate-300 dark:border-slate-600/60 rounded-xl py-6 cursor-pointer hover:border-blue-400 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className={`text-sm font-medium ${form.image_url ? "text-blue-500 dark:text-blue-400" : "text-slate-500 dark:text-slate-400"}`}>
               {form.image_url ? "Image selected ✓" : "Click to upload image"}
             </span>
           </label>
           {form.image_url && (
-            <img src={form.image_url} alt="preview" className="mt-3 w-full h-36 md:h-48 object-cover rounded-lg border border-gray-200 dark:border-gray-600" />
+            <img src={form.image_url} alt="preview" className="mt-3 w-full h-36 md:h-48 object-cover rounded-xl border border-slate-200 dark:border-slate-700/50" />
           )}
         </div>
+
+        {/* Category */}
         <div className="flex gap-4">
           {["personal", "academic"].map((cat) => (
-            <label key={cat} className="flex items-center gap-2 cursor-pointer">
+            <label key={cat} className="flex items-center gap-2 cursor-pointer group">
+              <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${form.category === cat ? "border-blue-500 bg-blue-500" : "border-slate-300 dark:border-slate-600 group-hover:border-blue-400"}`}
+                onClick={() => setForm((f) => ({ ...f, category: cat }))}>
+                {form.category === cat && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+              </div>
               <input type="radio" name="category" value={cat}
                 checked={form.category === cat}
                 onChange={() => setForm((f) => ({ ...f, category: cat }))}
-                className="accent-blue-600" />
-              <span className="capitalize dark:text-gray-200">{cat}</span>
+                className="sr-only" />
+              <span className="text-sm capitalize text-slate-600 dark:text-slate-300">{cat}</span>
             </label>
           ))}
         </div>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        {success && <p className="text-green-500 text-sm">{success}</p>}
+
+        {error && (
+          <p className="text-sm text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 rounded-xl px-3 py-2">{error}</p>
+        )}
+        {success && (
+          <p className="text-sm text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/40 rounded-xl px-3 py-2">{success}</p>
+        )}
+
         <button type="submit" disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-2 rounded-lg transition-colors cursor-pointer">
+          className="w-full py-2.5 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed">
           {loading ? "Uploading..." : "Add Project"}
         </button>
       </form>

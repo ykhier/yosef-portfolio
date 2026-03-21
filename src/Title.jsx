@@ -1,12 +1,14 @@
-
-
-function Title(props) {
+function Title({ title }) {
     return (
-        <div className="mx-auto max-w-5xl text-center mb-6">
-            <h1 className="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-blue-700 via-sky-500 to-cyan-300 bg-clip-text text-transparent tracking-tight mb-2">
-                {props.title}
+        <div className="text-center mb-8">
+            <h1 className="font-display text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 bg-clip-text text-transparent tracking-tight mb-3">
+                {title}
             </h1>
-            <div className="h-1 w-24 bg-gradient-to-r from-blue-700 via-sky-500 to-cyan-300 rounded-full mx-auto"></div>
+            <div className="flex items-center justify-center gap-2">
+                <div className="h-px w-10 bg-gradient-to-r from-transparent via-blue-400 to-blue-500 opacity-60" />
+                <div className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
+                <div className="h-px w-10 bg-gradient-to-l from-transparent via-blue-400 to-blue-500 opacity-60" />
+            </div>
         </div>
     );
 }

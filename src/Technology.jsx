@@ -3,7 +3,8 @@ import { MotionDiv, staggerContainer, staggerCard } from "./animations";
 function Technology({ skills, title }) {
     return (
         <div className="flex flex-col mt-8">
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-100 mb-5">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-5 flex items-center gap-2">
+                <span className="h-px w-4 bg-blue-400/60 inline-block" />
                 {title}
             </h2>
             <MotionDiv
@@ -19,13 +20,13 @@ function Technology({ skills, title }) {
                         <MotionDiv
                             key={skill.name}
                             variants={staggerCard}
-                            className="group flex flex-col items-center gap-2.5 rounded-xl border border-gray-100 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 px-3 py-4 shadow-sm transition-all duration-200 ease-out hover:-translate-y-1 hover:border-gray-300 dark:hover:border-gray-500 hover:shadow-md hover:bg-white dark:hover:bg-gray-700 cursor-default"
+                            className="group flex flex-col items-center gap-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700/50 bg-slate-50 dark:bg-slate-800/50 px-3 py-4 transition-all duration-200 ease-out hover:-translate-y-1 hover:border-blue-300 dark:hover:border-blue-700/60 hover:shadow-md hover:shadow-blue-100/50 dark:hover:shadow-blue-950/40 hover:bg-white dark:hover:bg-slate-800 cursor-default"
                         >
                             <Icon
                                 className={`h-8 w-8 ${skill.color} transition-transform duration-200 group-hover:scale-110`}
                                 title={skill.name}
                             />
-                            <span className="text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-200 text-center leading-tight">
+                            <span className="text-xs font-medium text-slate-500 dark:text-slate-400 group-hover:text-slate-800 dark:group-hover:text-slate-200 transition-colors duration-200 text-center leading-tight">
                                 {skill.name}
                             </span>
                         </MotionDiv>
