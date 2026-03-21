@@ -37,12 +37,12 @@ function Projects() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.06 }}
-        className="mx-auto max-w-5xl rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md p-8"
+        className="mx-auto max-w-5xl rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-md p-4 md:p-8"
       >
         <Title title="Projects" />
 
         {/* Category filter tabs */}
-        <div className="flex justify-center gap-2 mb-6">
+        <div className="flex flex-wrap justify-center gap-2 mb-6">
           {CATEGORIES.map(({ key, label }) => (
             <button
               key={key}
@@ -101,7 +101,7 @@ function Projects() {
                 <img
                   src={project.image_url}
                   alt={project.title}
-                  className="w-full h-60 object-cover rounded-t-lg"
+                  className="w-full h-44 md:h-60 object-cover rounded-t-lg"
                 />
                 <div className="p-4 flex-1 flex flex-col">
                   <div className="flex items-center gap-2 mb-2">

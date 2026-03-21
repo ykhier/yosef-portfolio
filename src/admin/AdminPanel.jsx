@@ -32,7 +32,7 @@ export default function AdminPanel() {
   useEffect(() => { fetchProjects(); }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 px-4 py-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 px-3 md:px-4 py-6 md:py-8">
       <div className="mx-auto max-w-3xl">
         <AdminHeader />
         <AddProjectForm onAdded={fetchProjects} onAuthError={handleAuthError} />

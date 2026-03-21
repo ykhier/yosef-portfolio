@@ -44,7 +44,7 @@ export default function AddProjectForm({ onAdded, onAuthError }) {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 mb-8">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-4 md:p-6 mb-8">
       <h2 className="text-lg font-semibold mb-4 dark:text-white">Add New Project</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input type="text" placeholder="Project title" value={form.title}
@@ -68,7 +68,7 @@ export default function AddProjectForm({ onAdded, onAuthError }) {
             </span>
           </label>
           {form.image_url && (
-            <img src={form.image_url} alt="preview" className="mt-3 w-full h-48 object-cover rounded-lg border border-gray-200 dark:border-gray-600" />
+            <img src={form.image_url} alt="preview" className="mt-3 w-full h-36 md:h-48 object-cover rounded-lg border border-gray-200 dark:border-gray-600" />
           )}
         </div>
         <div className="flex gap-4">
